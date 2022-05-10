@@ -120,5 +120,5 @@ func initConfig() {
 	viper.AutomaticEnv() // read in environment variables that match INEXT_*
 
 	// If a config file is found, read it in.
-	viper.ReadInConfig()
+	viper.ReadInConfig() //nolint:errcheck // the error can be ignored, the user doesn't have to provide config file
 }
