@@ -33,7 +33,7 @@ builds:
 archives:
   - format: binary
     id: binary_archive
-    name_template: '{{ .ProjectName }}'
+    name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
   - format: zip
     id: zip_archive
     name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
