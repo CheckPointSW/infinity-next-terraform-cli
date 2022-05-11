@@ -10,7 +10,7 @@ If already have an API key from setting up [terraform-provider-infinity-next](ht
 3. Store the *Client ID* and *Secret Key* in a secure location, and note there's no way to view the secret key afterward.
 
 ## Usage
-First, Download and install the CLI found in the latest release.
+Download and install the CLI found in the [latest release](https://github.com/CheckPointSW/infinity-next-terraform-cli/releases/latest)
 
 You could run `inext help` and get all available options and commands.
 
