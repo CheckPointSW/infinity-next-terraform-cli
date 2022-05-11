@@ -1,8 +1,6 @@
 name: SourceGuard Code Analysis
 on: 
   push:
-    tags-ignore:
-      - '**'
   
 jobs:
   code-analysis:
