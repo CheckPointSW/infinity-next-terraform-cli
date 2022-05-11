@@ -1,7 +1,9 @@
 package main
 
-import "github.com/CheckPointSW/infinity-next-cli/cmd"
+import "github.com/CheckPointSW/infinity-next-terraform-cli/cmd"
+
+var version = "development"
 
 func main() {
-	cmd.Execute()
+	cmd.Execute(version)
 }

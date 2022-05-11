@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/CheckPointSW/infinity-next-cli/cmd/utils"
+	"github.com/CheckPointSW/infinity-next-terraform-cli/cmd/utils"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 )
