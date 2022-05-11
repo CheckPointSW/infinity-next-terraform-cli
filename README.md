@@ -1,4 +1,4 @@
-# Infinity Next CLI
+# Infinity Next Terraform CLI
 The project provides a command line interface for using the API of Infinity Next
 
 ## Generating an API Key *(Required)*
