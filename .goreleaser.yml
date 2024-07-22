@@ -1,5 +1,6 @@
 # Visit https://goreleaser.com for documentation on how to customize this
 # behavior.
+version: 2
 project_name: 'inext'
 before:
   hooks:
@@ -40,17 +41,8 @@ archives:
 checksum:
   name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
   algorithm: sha256
-nfpms:
-- builds:
-  - inext
-  file_name_template: 'inext_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
-  package_name: 'inext'
-  formats:
-    - apk
-    - deb
-    - rpm
 release:
   # If you want to manually examine the release before its live, uncomment this line:
   draft: true
 changelog:
-  skip: true
+  disable: true
