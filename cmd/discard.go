@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/CheckPointSW/infinity-next-terraform-cli/cmd/utils"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 )
@@ -51,6 +52,7 @@ var discardCmd = &cobra.Command{
 	},
 	RunE: func(cmd *cobra.Command, args []string) error {
 		var URL string
+		API := policyPath
 		switch region {
 		case "eu":
 			URL = EUCIURL
@@ -105,16 +107,43 @@ var discardCmd = &cobra.Command{
 			return err
 		}
 
-		enforceReq, err := http.NewRequest(http.MethodPost, URL+CIAPIV1, bytes.NewBuffer(bReq))
+		discardReq, err := http.NewRequest(http.MethodPost, URL+API, bytes.NewBuffer(bReq))
 		if err != nil {
 			return err
 		}
 
-		enforceReq.Header.Set("Authorization", "Bearer "+auth.Data.Token)
-		enforceReq.Header.Set("Content-Type", "application/json")
+		token, _, err := jwt.NewParser().ParseUnverified(auth.Data.Token, jwt.MapClaims{})
+		if err != nil {
+			return fmt.Errorf("failed to parse token: %w", err)
+		}
+
+		tokenMapClaims := token.Claims.(jwt.MapClaims)
+		if appID, ok := tokenMapClaims[appIDClaim]; ok {
+			switch appID.(string) {
+			case wafAppID:
+				if API != wafPath {
+					API = wafPath
+					discardReq, err = http.NewRequest(http.MethodPost, URL+API, bytes.NewBuffer(bReq))
+					if err != nil {
+						return err
+					}
+				}
+			case policyAppID:
+				if API != policyPath {
+					API = policyPath
+					discardReq, err = http.NewRequest(http.MethodPost, URL+API, bytes.NewBuffer(bReq))
+					if err != nil {
+						return err
+					}
+				}
+			}
+		}
+
+		discardReq.Header.Set("Authorization", "Bearer "+auth.Data.Token)
+		discardReq.Header.Set("Content-Type", "application/json")
 
 		var discardChanges graphqlResponse[discardResponseData]
-		discardResp, err := utils.HTTPRequestUnmarshal(&client, enforceReq, &discardChanges)
+		discardResp, err := utils.HTTPRequestUnmarshal(&client, discardReq, &discardChanges)
 		if err != nil {
 			return err
 		}
