@@ -186,7 +186,7 @@ var enforceCmd = &cobra.Command{
 			errch <- nil
 		}()
 
-		// Timeout of 10 seconds for the polling routine to finish
+		// Timeout of 1 minute for the polling routine to finish
 		select {
 		case err := <-errch:
 			if err != nil {
@@ -201,8 +201,8 @@ var enforceCmd = &cobra.Command{
 			default:
 				return fmt.Errorf("enforce policy task %s done with unknown status %s", enforcePolicy.Data.EnforcePolicy.ID, taskStatus)
 			}
-		case <-time.After(10 * time.Second):
-			return fmt.Errorf("enforce policy task did not finish after 10 seconds, quiting")
+		case <-time.After(1 * time.Minute):
+			return fmt.Errorf("enforce policy task did not finish after 1 minute, quiting")
 		}
 
 		return nil
