@@ -11,6 +11,10 @@ import (
 const (
 	EUCIURL     = "https://cloudinfra-gw.portal.checkpoint.com"
 	USCIURL     = "https://cloudinfra-gw-us.portal.checkpoint.com"
+	AUCIURL     = "https://cloudinfra-gw.ap.portal.checkpoint.com"
+	INCIURL     = "https://cloudinfra-gw.in.portal.checkpoint.com"
+	AECIURL     = "https://cloudinfra-gw.ae.portal.checkpoint.com"
+	CACIURL     = "https://cloudinfra-gw.ca.portal.checkpoint.com"
 	CIAuthPath  = "/auth/external"
 	appIDClaim  = "appId"
 	wafAppID    = "64488de9-f813-42a7-93e7-f3fe25dd9011"
